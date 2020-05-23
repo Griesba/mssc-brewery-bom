@@ -10,7 +10,7 @@
 
   <groupId>guru.springframework</groupId>
   <artifactId>mssc-brewery-bom</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>mssc-brewery-bom</name>
   <description>mssc-brewery-bom</description>
 
@@ -98,7 +98,7 @@
     <connection>scm:git:git://github.com/Griesba/mssc-brewery-bom.git</connection>
     <developerConnection>scm:git:git@github.com:Griesba/mssc-brewery-bom.git</developerConnection>
     <url>https://github.com/Griesba/mssc-brewery-bom</url>
-    <tag>SNAPSHOT</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>
