@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.3.0.RELEASE</version>
-    <relativePath /> <!-- lookup parent from repository -->
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>guru.springframework</groupId>
-  <artifactId>mssc-brewery-bom</artifactId>
+  <!-- FIXME https://github.com/Griesba/mssc-brewery-bom/issues/1 -->
+  <groupId>io.github.griesba</groupId>
+  <!--<groupId>guru.springframework</groupId>-->
+  <artifactId>mssc-brewery-bom-demo</artifactId>
   <version>0.0.2-SNAPSHOT</version>
-  <name>mssc-brewery-bom</name>
-  <description>mssc-brewery-bom</description>
+  <name>mssc-brewery-demo</name>
+  <description>mssc-brewery-bom-demo</description>
 
   <packaging>pom</packaging>
 
@@ -28,27 +31,6 @@
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
   </properties>
 
-
-  <organization>
-    <name>Pivotal Software, Inc.</name>
-    <url>https://spring.io</url>
-  </organization>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <name>Pivotal</name>
-      <email>info@pivotal.io</email>
-      <organization>Pivotal Software, Inc.</organization>
-      <organizationUrl>https://www.spring.io</organizationUrl>
-    </developer>
-  </developers>
 
   <dependencyManagement>
     <dependencies>
@@ -88,8 +70,7 @@
     </snapshotRepository>
     <repository>
       <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
-      </url>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
 
@@ -173,6 +154,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-artemis</artifactId>
     </dependency>
   </dependencies>
 
@@ -302,6 +287,24 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+            <configuration>
+              <keyname>${gpg.keyname}</keyname>
+              <passphraseServerId>${gpg.keyname}</passphraseServerId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -328,6 +331,12 @@
                 <goals>
                   <goal>sign</goal>
                 </goals>
+                <configuration>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
               </execution>
             </executions>
           </plugin>
